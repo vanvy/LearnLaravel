@@ -95,6 +95,6 @@ class MyController extends Controller
             return view('product.dell');
         }
         else 
-            return "Trang khong ton tai";
+            return "Hien tai khong co san pham nay";
     }
 }
