@@ -88,11 +88,12 @@ class MyController extends Controller
     }
 
     public function myProduct($myProduct) {
+        $list = "<b>Danh sach san pham</b>";
         if($myProduct == 'asus') {
-            return view('product.asus');
+            return view('product.asus',['list'=>$list]);
         }
         elseif ($myProduct =='dell') {
-            return view('product.dell');
+            return view('product.dell',['list'=>$list]);
         }
         else 
             return "Hien tai khong co san pham nay";
