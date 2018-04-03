@@ -114,3 +114,81 @@ Route::get('product', function() {
 });
 
 Route::get('product/{myProduct}', 'MyController@myProduct');
+
+//QueryBuilder
+Route::get('users_qb/get', function() {
+    $data = DB::table('users')->get();
+    foreach($data as $row)
+    {
+        foreach($row as $key =>$value)
+        {
+            echo $key.":".$value."<br>";
+        }
+        echo "<hr>";
+    }
+});
+Route::get('product_qb/get', function() {
+    $data = DB::table('product')->get();
+    foreach($data as $row)
+    {
+        foreach($row as $key=>$value)
+        {
+            echo $key.":".$value."<br>";
+        }
+        echo "<hr>";
+    }
+});
+
+// select * from user where id = 2
+Route::get('user_qb/where', function() {
+    $data = DB::table('users')->where('name',"vy")->get();
+    foreach($data as $row)
+    {
+        foreach($row as $key => $value)
+        {
+            echo $key.":".$value."<br>";
+        }
+        echo "<hr>";
+    }
+});
+
+// Select id, name, email...
+Route::get('user_qb/select/{id}', function($id) {
+    //echo $id; Truyen tham so
+    $data = DB::table('users')
+        ->select(['id','name','email'])
+        // ->where('id',2)
+        ->where('id',$id)
+        ->get();
+    foreach($data as $row)
+    {
+        foreach($row as $key => $value)
+        {
+            echo $key.":".$value."<br>";
+        }
+        echo "<hr>";
+    }
+});
+
+//Update
+Route::get('user_qb/update/{name}', function($name) {
+    DB::table('users')
+        ->where('id',2)
+        ->update(['name'=>$name]);
+    echo "Da update";
+});
+
+Route::get('product_qb/update', function() {
+    DB::table('product')
+        ->where('id',3)
+        ->update(['name_product'=>'HP', 'id_category'=>'4']);
+    echo "Update thanh cong";
+});
+
+//Delete
+Route::get('product_qb/delete', function() {
+    DB::table('product')
+        ->where('id',2)
+        ->delete();
+});
+
