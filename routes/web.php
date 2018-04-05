@@ -192,3 +192,65 @@ Route::get('product_qb/delete', function() {
         ->delete();
 });
 
+// Model
+Route::get('model/save', function() {
+    $user = new App\User();
+    
+    $user->name = "An";
+    $user->email = "an@azwebplus.com";
+    $user->password = "12345";
+
+    $user->save();
+
+    echo "Da thuc hien thanh cong";
+});
+
+Route::get('query/{id}', function($id) {
+    $user = App\User::find($id)->toArray();
+    // echo $user;
+    // if(isset($user)){
+    //     foreach($user as $key => $value)
+    //     {
+    //         echo $key.":".$value."<br>";
+    //     }
+    // }
+    // else
+    //     echo "Khong ton tai user id: ".$id;
+    return $user;
+
+});
+
+// Model product
+Route::get('model/product/save/{name}', function($name) {
+    $product = new App\product();
+
+    $product->name_product = $name;
+    $product->id_category = "5";
+    $product->soluong = 15;
+
+    $product->save();
+
+    echo "Thuc hien thanh cong";
+});
+
+Route::get('model/product/all', function() {
+    $product = App\product::all();
+    // var_dump($product);
+    return $product->toArray();
+});
+
+//delete
+Route::get('model/product/delete', function() {
+    App\product::destroy(5);
+    echo "Thuc hien thanh cong";
+});
+
+Route::get('hasMany', function() {
+    $data = App\category::find(1)->product;
+    return $data;
+});
+
+Route::get('belongsto', function() {
+    $data = App\product::find(1)->category;
+    return $data;
+});
